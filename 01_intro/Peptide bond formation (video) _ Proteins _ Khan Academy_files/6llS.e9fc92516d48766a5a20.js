@@ -1,0 +1,11 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["6llS"],{H4Y1:function(e,t,n){"use strict";var r=n("TqRt");Object.defineProperty(t,"__esModule",{value:!0}),t.GET_SUBTITLES=void 0,t.convertCaptionsToVTT=s,t.fetchFallbackPlayerCaptions=async function(e,t){const n=await p(e,t,u.default.kaLocale);if(0===n.length)return null;return f(s(n))},t.generateUrlForVTTString=f,t.getSubtitlesForVideo=void 0,t.msToTime=l;var o=r(n("lTCR")),a=function(e,t){if(!t&&e&&e.__esModule)return e;if(null===e||"object"!=typeof e&&"function"!=typeof e)return{default:e};var n=c(t);if(n&&n.has(e))return n.get(e);var r={},o=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var a in e)if("default"!==a&&Object.prototype.hasOwnProperty.call(e,a)){var u=o?Object.getOwnPropertyDescriptor(e,a):null;u&&(u.get||u.set)?Object.defineProperty(r,a,u):r[a]=e[a]}r.default=e,n&&n.set(e,r);return r}(n("4PhQ")),u=r(n("Q8Wn"));let i;function c(e){if("function"!=typeof WeakMap)return null;var t=new WeakMap,n=new WeakMap;return(c=function(e){return e?n:t})(e)}function l(e){function t(e,t=2){return("00"+e).slice(-t)}const n=e%1e3,r=(e-n)/1e3,o=r%60,a=(r-o)/60,u=a%60;return t((a-u)/60)+":"+t(u)+":"+t(o)+"."+t(n,3)}function s(e){return`WEBVTT\n\n${e.map(((e,t)=>`${t}\n${l(e.startTime)} --\x3e ${l(e.endTime)}\n<c.caption>${e.text}</c>`)).join("\n\n")}`}function f(e){const t=new Blob([e],{type:"text/plain;charset=utf-8"});return URL.createObjectURL(t)}const d=(0,n("8r+/").gqlOp)((0,o.default)(i||(i=(e=>e)`
+    query GetSubtitles($youtubeId: String!, $kaLocale: String!) {
+        subtitles(youtubeId: $youtubeId, kaLocale: $kaLocale) {
+            text
+            startTime
+            endTime
+            kaIsValid
+        }
+    }
+`)));t.GET_SUBTITLES=d;const p=(e,t,n)=>e.query(d,{variables:{youtubeId:t,kaLocale:n},fetchPolicy:"cache-first"}).then((e=>{var t;return(null==(t=e.data)?void 0:t.subtitles)||[]})).catch((e=>(a.default.error("Failed to get subtitles for video",a.Errors.Internal,{cause:e,sentryData:{contexts:{extras:{youtubeId:t,kaLocale:n}}}}),[])));t.getSubtitlesForVideo=p}}]);
+//# sourceMappingURL=../../sourcemaps/en/6llS.e9fc92516d48766a5a20.js.map
