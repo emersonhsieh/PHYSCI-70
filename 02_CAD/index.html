@@ -12,34 +12,65 @@
 
 <div class="container-fluid">
 
-  ### Week 1: Introduction 
+  ### Week 2: 2D Design & Cutting
 
-  Going into this week, I had a couple of ideas. 
-  First idea: I'm super interested in toilets. For instance, researchers at Stanford have invented a toilet that can detect health markers based on disease markers. Moreover, there are lots of places that don't have access to comprehensive sewer systems. Hence, some researchers are working on creating self-containing toilets aka toilets that do not rely on external energy or water and can dispose waste by itself. I don't know what I would do entirely with this project except I do think toilets are very cool. 
+  #Background on Project
 
-  ![image of Stanford's "smart toilet"](./download.png)
+  If you haven't gotten to known Dilek yet, you're missing out. Dilek is the most amazing and wonderful human being: kind, smart, the entire package, really. She was the instructor of my Experimental Inorganic ?(Chem 145) course and also my Inorganic chemistry (Chem 40) course. In Chem 145, I was fortunate enough to work with my project team to create these aromatic compounds (fancy word for molecules with rings in them) called "porphyrin." We were able to substitute metals into the center of these porphyrins and make novel porphyrin molecules. 
 
+  I wanted to give a gift for Dilek to thank her for all of her hard work and help throughout Chem 40 and Chem 145. Chem 145 was such a magical experience, and I'm so fortunate for this experience. 
 
-  Second idea: Lab equipment. Problem is, the thing I primarily work with are pipettes and I can't think of what else our lab would need. I don't think making an electronic pipette would be super satisfying though since electronic/robotic pipettes have already been made. 
-  ![image of pipettes](./pipette.jpg)
+  I wanted to make something practical for Dilek but also has flair. Thus, I decided to make a box with a porphyrin molecule on top. 
 
-  Talking to Nathan though, he mentioned that there are some researchers in MGH who might need help in creating something to model spinal cords. Hence, I would be interested in that.  
+  ![final_box](./box_3.png)
+  ![final_box_2](./box_2.png)
+  This is the final piece. It is a box with finger joints (7 grooves on each side) and a hole on top. The porphyrin molecule, glued onto a circle that snapes onto the box, is the lid. 
 
-  Third idea: Having something that could create a model of proteins. I really like proteins and was imagining 3D printing amino acids and then having a machine that could link these amino acids into a linear pepetide while modeling the release of water. 
-
-  I think this would be more feasible since peptide bond formation is a standard reaction i.e. I don't have a bajillion types of reactions going on. 
-
-  Here is a <a href="https://www.khanacademy.org/science/biology/macromolecules/proteins-and-amino-acids/v/peptide-bond-formation">Video describing peptide bond formation<a>
-
-
-  For now, I think I'm going to go with project idea number 2 (with the spinal cord MGH idea) since it's the most concrete and has a real-life impact. But if 2 doesn't work out, I'll most likely do 3. 
-
-
+   #Designing the box 
   
+
+  To do this, I measured the width of the cardboard and got 4.5 mm. I designed the box on Fusion. At first, I tried to make a 133 mm by 133 mm (since 133 is divisible by 7) square and cut out the notches (4.5 in depth + kerf) from it. However, at the time, I couldn't figure out how to cut into the empty space of the box. Thus, I remade my file to be a smaller square (124mm by 124 mm) and added the rectangular notches to it (a 4.5 X 19 mm rectangle, with adjustment of kerf). However, later, I realized that due to how a laser cutter works, either would work (basically, I lost a day's worth of work unnecessarily). [This is an early file of what me working on one of the squares looks like ](./rough_dimension.png)
+
+  I then measured the kerf by cutting out two sample squares with different notch amounts along the side (I tried 0.2-0.8 mm). and tried to see what "snapped the best."
+  For me, and the cardboard I used, (I later realized that there were different thicknesses of cardboard available at the lab), I had a kerf of 0.3 mm on each side of the length of the notch (0.6 per notch) and for the depth, it was 1/2 the kerf of the length, which is 0.3 mm. 
+  Here's an example of one of the things I printed out to see kerf. [image of box with kerf](./kerf.png)
+
+  I then adjusted my notches to account for the kerf. (I had originally entered a parameter of kerf, and so just had to enter what the kerf is). Since I was doing notches, I could either add to the material of each notch or subtract the kerf from the gap (I confirmed with a TF about this). Thus, I then adjusted my file's dimensions and printed it out again. One note about my design: the bottom and top squares are the same (with the exception of the hole of the top square), the left and right square have the same design of notches, and the front and back squares have the same design. 
+
+  Dimensioning took a while, especially since I had 7 indents per side of the square.  [This is what the fusion file looks like when done](./final_dimension.png). To note, each piece adds to each other. 
+
+  After I finalized my design, I sent it to the 3D printer. After the pieces were printed out, I made sure I snap together the different pieces together. It was so satisfying to snap! 
+
+ 
+ #Designing the lid
+  
+
+  I then made the lid. I had to account for kerf for the circle that fits into the lid also. Hence, I cut out a variety of circles and tested out which ones fit into the hold on the lid the best. I then glued another circle on top to make the lid "pop up" even more. I then made the porphyrin design to glue on the lid. I first made a ChemDraw file to draw the molecule and I consulted my little brother to convert it to a Fusion file. This took a long time. Since I wanted an outline around the shape of the porphyrin, I used ovals to cut out the shape. On the laser-cutting computer, I then used different colors with corresponding depths to make sure I was cutting out the outline but etching in the porphyrin design. The right speed and power to accomplish this took a couple of tries, especially since the design is intricate. 
+
+  In addition, I originally had a cut of the lid that looked
+
+  Ultimately, these were the settings I used. 
+
+  ![image of laser settings](./laser.png)
+
+  ![image of laser settings](./lid_design.png)
+
+  I then attached the porphyrin to the circle lid that snaps into the box to yield my product!  
+
+  Here's a cool video of the lid design being cut out. <a href="https://drive.google.com/file/d/1PviKsEHlFnONeQ9aNyIav1JB5f_hffdF/view?usp=sharing">
+
+
+
+ #Putting Everything together
+
+ Here are all the different pieces I ended up with 
+ ![layout](./layout.png)
+
+ I then snapped them together to get my final box! 
       
    
 
-
+## 
 
 
 </xmp>
