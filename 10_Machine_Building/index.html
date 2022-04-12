@@ -12,35 +12,36 @@
 
 <div class="container-fluid">
 
-  ### Week 6: Electronic input devices
+  ### Week 10: Machines
 
 
   #Background on Project
 
-## This week, I was trying to make a whack-a-COVID. Essentially, with a 
+## This week, I was trying to make a whack-a-COVID. Essentially, with the awfulness of COVID, I wanted to see if I could make a whack-a-mole but with COVID instead of a mole. 
 
-I primarily wanted to do this because I thought it would be interesting to learn how to convert rotational motion to 
-I consulted this video (https://www.youtube.com/watch?v=6BkYcqe8Vmo&t=54s) for much of my 
+I primarily wanted to do this because I thought it would be interesting to learn how to convert rotational motion to linear motion. This is also a challenge in terms of positioning, which a stepper motor would be helpful for. 
+I consulted this video (https://www.youtube.com/watch?v=6BkYcqe8Vmo&t=54s) for some inspiration as to some cartoons in terms of how to make linear motion from rotational motion. 
 
  
-# Thermosister
+# Stepper motor and breadboard
 
-My potential final project is related to composting toilets. Hence, I thought it would be valuable to look into making a thermosister, which could be used in examples like measuring the temperature of the compost that comes out of the composting toilet. To do this, I looked at the Arduino create website as reference (https://create.arduino.cc/projecthub/Marcazzan_M/how-easy-is-it-to-use-a-thermistor-e39321). I then recreated the circuit displayed in the pictorial. 
+Stepper motors allow for smoother motion through incremental "steps." They can also carry a decent load and have good positional control. One of the cons, however, is that it is bulkier. 
 
-![termosister](./thermosister_breadboard.jpg)
+I first made sure that my Stepper motor could work and function. Here is a picture of my breadboard
+![machine_breadboard](./machine_breadboard.jpg). To note, my stepPin is 4, and my dirPin is 5. Moreover, I wired the breadboard (Kassia also helped me with this) so no external battery needed to be hooked up. You'll notice by looking at the image that I used an Arduino Feather. On the breadboard, there is also a capacitor and the driver (red). The wiring allows the code to be executed and tells the motor what to do. This page (https://nathanmelenbrink.github.io/ps70/12_machine/steppers.html) details the benefits of Stepper motors and the function of each component. 
 
-I then looked at the code corresponding to the thermosister and played around with it. Notably, the top 
+I made sure to select the correct output port and have the board Nathan's website here(https://nathanmelenbrink.github.io/ps70/10_networking/setup.html) details how to set up to accept the Arduino feather. 
 
-# Capacitative sensing + Sound 
+However, I was curious if I could 
+
+# Code
 
 During lab on Thursday, Rob and I explored using capacitative sensing for sound. Essentially, we had put copper sheets in the metal bowl like so 
 
-![sensor]](./sensing_1.png)
 
 
 #Reflections
-It was super cool to work further with electronics. As someone with no electronics background and someone who hasn't worked with sensors, this was a very valuable experience! I'm hoping to use these skills in my final project and beyond. Especially since I see a lot of cool projects with sensors on YouTube (such as on the channels of Michael Reeves and Simone Giertz), I think I have the confidence to use these sensors in cool projects!
-
+It was super cool to work further with electronics and working with Stepper motors, which I haven't worked with before. Especially since stepper motors 
 
 </xmp>
 </body>
