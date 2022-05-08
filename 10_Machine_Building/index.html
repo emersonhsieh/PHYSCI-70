@@ -19,6 +19,7 @@
 
 ## This week, I was trying to make a whack-a-COVID. Essentially, with the awfulness of COVID, I wanted to see if I could make a whack-a-mole but with COVID instead of a mole. 
 
+
 I primarily wanted to do this because I thought it would be interesting to learn how to convert rotational motion to linear motion. This is also a challenge in terms of positioning, which a stepper motor would be helpful for. 
 I consulted this video (https://www.youtube.com/watch?v=6BkYcqe8Vmo&t=54s) for some inspiration as to some cartoons in terms of how to make linear motion from rotational motion. 
 
@@ -26,7 +27,7 @@ Here is the final product (2X speed since the original file was too big to be ma
 
 ![corona](./corona.gif)
 
- 
+ For this week's project, I wanted to get my corona to rise up and down with a stepper motor (and at a random interval)
 # Stepper motor and breadboard
 
 Stepper motors allow for smoother motion through incremental "steps." They can also carry a decent load and have good positional control. One of the cons, however, is that it is bulkier. 
@@ -108,14 +109,14 @@ In terms of my testing process, I wanted when the COVID to pop up to be random. 
 
 I essentially wanted the COVID to move up and then move down. I experimented with where to put the delay, as well as the right speed to have it. To make the stepper motor go down, I had to experiment with the position to be the "down" position. -101 worked well for me as the "down" position.
 
+#Modifications
+
+The stepper motor kept vibrating too much, so I decided to connect my circuit to a stronger external battery (9V) to see if that would help things. It did not. Thus, I tried a couple of Stepper motors until I found one that was much more smooth and didn't shake as much. 
 
 # Repeatable results 
 I was able to calibrate it to get repeatable results through the securement of the stepper motor onto the bottom with the mount and the attachment to the top panel with a 3D printed piece. Moreover, my first linkage piece was also 3D printed (whereas my other pieces were in wood) to make sure it wouldn't get worn off as much. Thus, there were multiple points of securement. Moreover, by designating the exact position to be the resting position and telling my COVID to get to the resting position through the code, it returns to the same location each time. Hence, here's another clip of it doing it again. 
 ![covid repeatable results](./covid-repeatable-results.gif). 
 
-#Modifications
-
-The stepper motor kept vibrating too much, so I decided to connect my circuit to a stronger external battery (9V) to see if that would help things. It did not. Thus, I tried a couple of Stepper motors until I found one that was much more smooth and didn't shake as much. 
 
 
 #Reflections
