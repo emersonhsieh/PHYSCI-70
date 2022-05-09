@@ -23,6 +23,8 @@ This week, I was trying to make a whack-a-COVID. Essentially, with the awfulness
 I primarily wanted to do this because I thought it would be interesting to learn how to convert rotational motion to linear motion. This is also a challenge in terms of positioning, which a stepper motor would be helpful for. 
 I consulted this video (https://www.youtube.com/watch?v=6BkYcqe8Vmo&t=54s) for some inspiration as to some cartoons in terms of how to make linear motion from rotational motion. 
 
+I wanted to nail down the action of the corona randomly rising up and being able to go back to position. 
+
 Here is the final product (2X speed since the original file was too big to be made into a gif). I'll detail how I made this below. 
 
 ![corona](./corona.gif)
@@ -41,7 +43,7 @@ I made sure to select the correct output port and have the board be the Feather.
 
 ## COVID
 
-Here is the vector file I used for the virus: I found it off of the internet but essentially wanted to make sure it would be a simple outline. The holes are also a bonus feature. I then made a hole that could fit my screw. In my first version, I decided to just hotglue my virus to the rod instead because I thought there was no point in attaching it through a bolt. 
+Here is the vector file I used for the virus: I found it off of the internet but essentially wanted to make sure it would be a simple outline. The holes are also a bonus feature. I then made a hole that could fit my screw. In my first version, I decided to just hotglue my virus to the rod instead because I thought there was no point in attaching it through a bolt. However, later on after I re-laser cut my corona virus with wood instead of corona, I decided to bolt it on instead to provide me with the flexibility of length. 
 
 ![covid](./covid.png)
 
@@ -53,7 +55,7 @@ In the future, if this works I would probably 3D print my COVID virus molecule s
 
 
 ## Joints
-I then made a variety of different joints on the laser cutter. When I designed it on Fusion, I made sure it was compatible with M4 nuts and bolts. Moreover, to figure out the kerf, I had made the first few holes of my joints of varying widths on my Fusion file. Moreover, I made there a lot of holes so I can experiment with the linkages and what would make the Corona successfully "pop" out the best. To note, initially, because I used this composite wood material, it was a bit hard to cut. Hence, I had to fish it out using the spreader like so: 
+I then made a variety of different joints on the laser cutter. When I designed it on Fusion, I made sure it was compatible with M4 nuts and bolts. Moreover, to figure out the kerf, I had made the first few holes of my joints of varying widths on my Fusion file. Moreover, I made a lot of holes so I can experiment with the linkages and what would make the Corona successfully "pop" out the best. To note, initially, because I used this composite wood material, it was a bit hard to cut. Hence, I had to fish it out using the spreader like so: 
 
 ![joints](./joints_hammer.jpg)
 
@@ -61,6 +63,15 @@ Having a set of different linkages with holes along the way made it, and I'm gla
 
 
 Also due to repeated testing, the wood began to get worn by the stepper motor. Hence, I 3D printed a joint out since that was less likely to be worn out. 
+![linkage to motor](./linkage-to-motor.jpg)
+
+## Linkage holder
+Here is the design of the linkage holder itself. My little brother had suggested I 3D print that white piece to secure to the top panel rather than just directly secure the wood to the top panel (linkage holder) to make sure it's more secure especially since there's more surface area between the white piece and the top panel as compared to the wood and the top panel. 
+
+![linkage holder](./linkage-holder.jpg)
+
+Here is the corresponding sketch that the linkage holder was extruded from. Essentially, I was able to get the measurements from measuring the thickness of the wood of the linkage I was attaching to it. 
+![linkage dimensions](./linkage-dimensions.jpg)
 
 
 
@@ -76,6 +87,7 @@ Hence, I redesigned it to be like this instead, which had a good reach. (I also 
 
 ## Stepper motor mount
 My little brother was visiting me for Spring Break during this week and helped me design a stepper motor mount. ![stepper motor mount](./stepper-motor-mount.png) That way I could mount my Stepper motor to the bottom of my box without damaging the Stepper motor. ![stepper motor](./stepper-motor-mount.png)
+
 
 
 ## Main infrastructure
@@ -97,7 +109,9 @@ Here is what it looks like from the back, where I cut out a door panel for me to
 ![back panels](./back-panel-1.jpg). 
 ![back panels](./back-panel-2.jpg). 
 
-As you can see from my cutout, I have a blue servo mount coupled with the first link, which is 3D printed. The rest of the linkages are wood. I made sure the ratio of the linkages were so that the Corona could peak out the hole on the top. In addition, to secure the whole contraption to the box, I had 3D printed something to hold the wood linkage and attach to the top panel. My little brother had suggested I 3D print that white piece to secure to the top panel rather than just directly secure the wood to the top panel to make sure it's more secure especially since there's more surface area between the white piece and the top panel as compared to the wood and the top panel. 
+As you can see from my cutout, I have a blue servo mount coupled with the first link, which is 3D printed. The rest of the linkages are wood. I made sure the ratio of the linkages were so that the Corona could peak out the hole on the top. In addition, to secure the whole contraption to the box, I had 3D printed something to hold the wood linkage and attach to the top panel. My little brother had suggested I 3D print that white piece to secure to the top panel rather than just directly secure the wood to the top panel (linkage holder) to make sure it's more secure especially since there's more surface area between the white piece and the top panel as compared to the wood and the top panel. 
+
+
 
 
 
