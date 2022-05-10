@@ -153,7 +153,86 @@ When the Firebase displays "ready", the html website displays a green square.
 ![ready](./ready.png)
 ![green square](./green_square.png)
 
-This is the code I had worked on (Shoutout to Kassia for helping!!). (It's screenshots of it because my HTML got mad at me that I was pasting in HTML code, and the codetags wouldn't work for it)
+This is the code I had worked on (Shoutout to Kassia for helping!!). (It's screenshots of it because my HTML got mad at me that I was pasting in HTML code, and the codetags wouldn't work for)
+
+
+<pre><code class>
+<!DOCTYPE HTML>
+<head>
+  <title>Change color of div with Firebase</title>
+<style>
+.box{
+  height: 500px;
+  width: 500px;
+  margin-bottom: 15px;
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyACzzgnXokMHwxte0pM5DcOTosK6cXPwAI",
+      authDomain: "composting-toilet.firebaseapp.com",
+      databaseURL: "https://composting-toilet-default-rtdb.firebaseio.com",
+      projectId: "composting-toilet",
+      storageBucket: "composting-toilet.appspot.com",
+      messagingSenderId: "350848005407",
+      appId: "1:350848005407:web:b7660d1c781d4ae48aac2a"
+
+  };
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Get a database reference
+  database = firebase.database();
+
+  var ref = database.ref('TEMP_STATUS');
+
+  //On the event that there is a value, get that value or return an error
+  ref.on('value', gotData, errData);
+
+  //Make a function that gets the data
+  function gotData(data){
+    console.log(data.val());
+
+    //Get the data from the firebase
+    response = data.val();
+    if (response == 'ready'){
+      document.getElementById('temp_box').style.backgroundColor = 'green';
+    }else if (response == 'not ready'){
+      document.getElementById('temp_box').style.backgroundColor = 'red';
+    }else{
+      document.getElementById('temp_box').style.backgroundColor = 'black';
+    }
+    
+  }
+
+  //Make a function that calls an error
+  function errData(err){
+    console.log('Error!');
+    console.log(err); 
+  }
+  
+
+    </script>
+
+<div class='box' id='temp_box'></div>
+
+</body>
+</html>
+
+</code></pre>  
 
 
 <a href= "greensquare_3.html"><a> 
