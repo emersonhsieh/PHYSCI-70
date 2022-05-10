@@ -121,6 +121,7 @@ void loop() {
   TE = (1 / ((ln / B) + (1 / TI))); //Temperature from thermistor
 
   TE = TE - 273.15 -11;                 //Conversion to Celsius
+  // Serial.println(TE) //used for debugging and verification of temp
 
   if (TE> 25) { 
      Firebase.setString(firebaseData,"/TEMP_STATUS", "ready");
@@ -142,9 +143,10 @@ This then feeds it into the Firebase database, which I'll detail below.
 
 This is what the Realtime database looks like ![real time database](./realtime_database_what_it_looks_like.png)
 Based on the temperature and the Arduino code I showed above, it either states that the Temp_status is ready or not ready.  
-Hence, right now, since the temperature is not >25 degrees Celsius, it says  "not ready" (As verified by my thermometer, which says the temperature is less than 25 degrees).
+Hence, right now, since the temperature is not >25 degrees Celsius, it says  "not ready" (As verified by my thermometer, which says the temperature is less than 25 degrees + serial monitor when I put in a line of code so that my serial monitor displays the temperature).
 
-When I moved my thermosister closer to my heater and put my finger over it as well, it became >25 and changed it to "ready." This is as confirmed by my serial monitor, which displays the temperature. 
+When I moved my thermosister closer to my heater and put my finger over it as well, it became >25 and changed it to "ready." This is as confirmed when I uncomment a line of code so that my serial monitor displays the temperature. 
+
  
 ## Html Interface
 When the Firebase displays "not ready", it displays a red square
