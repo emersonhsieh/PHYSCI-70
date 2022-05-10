@@ -141,6 +141,15 @@ This then feeds it into the Firebase database, which I'll detail below.
 
 ##Firebase
 
+I set up my Firebase by following the instructions on Nathan's Website
+Nathan's website on firebase: https://nathanmelenbrink.github.io/ps70/10_networking/huzzah1b.html
+
+Random nerd tutorials is also useful as another way to explain it: Random nerd tutorials: https://randomnerdtutorials.com/esp32-esp8266-firebase-gauges-charts/
+
+I was able to make my composting toilet firebase working! :) 
+
+![composting_toilet_firebase](./composting_toilet_firebase.png)
+
 This is what the Realtime database looks like ![real time database](./realtime_database_what_it_looks_like.png)
 Based on the temperature and the Arduino code I showed above, it either states that the Temp_status is ready or not ready.  
 Hence, right now, since the temperature is not >25 degrees Celsius, it says  "not ready" (As verified by my thermometer, which says the temperature is less than 25 degrees + serial monitor when I put in a line of code so that my serial monitor displays the temperature).
