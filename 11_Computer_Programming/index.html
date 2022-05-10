@@ -23,15 +23,20 @@ I too, wanted to make a very simple interface much like "is it dark outside" tha
 
 Although I plan on using my ESP32 for my final project as the access point, I wanted to explore how to use Firebase, which relies on a router with internet access.
 
+I'm super interested in toilets, and one of the ways in which toilets are made more accessible in some parts of the world to people who do not have comprehensive sewer systems is through the creation of compost toilets. Essentially, it's a toilet that turns waste to compost without additional energy or water input. 
+
+I wanted to use a monitor that could use sensors to tell you if the compost is ready or not. This could be done through like 
+
+Hence, for some places where there is nearby router access, this may be a viable option in lieu of my final project setup where the 
 
 ## Arduino code and Breadboard (Input)
 I set up my breadboard to have a thermosister. Thus, temperature could be an input. I've worked on running and calibrated the thermositer in a previous week (see electronic input week)
 
-Here is a picture of my breadboard. I simplified some of the wiring for this week and tested it out. It works! 
+Here is a picture of my breadboard. I simplified some of the wiring for this week and tested it out. I know it works because there is the expected temperature written out on the serial monitor and serial plotter when I run the code! 
 
 ![week 11 breadboard](./week_11_breadboard.jpg)
 
-I adapted my temperature code to have an if statement. That way, it knows to tell Firebase that the compost is not ready if the temperature is below 25C. However, if the temperature is above 25C
+I adapted my temperature code to have an if statement. That way, it knows to tell Firebase that the compost is not ready if the temperature is below 25C. However, if the temperature is above 25C, it tells Firebase that the compost is ready. 
 
 <pre><code>
 #include <WiFi.h>                                 // esp32 library
