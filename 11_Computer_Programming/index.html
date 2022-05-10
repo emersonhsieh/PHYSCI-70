@@ -170,10 +170,16 @@ When the thermosister reads the temperature is less than 25 degrees C, the ardui
 
 
 
-## Variations
+## Variations + notes
 I also spent some time trying out different sizes of boxes. For instance, originally, I had the box much smaller, but realized it was hard to show around during show and tell
-Moreover, when I was trying to debug with Kassia, we communicated via Slack. She kept on saying the code worked for her Turns out there are these ghost numbers, presumably that appeared when I copied 
+Hence, I altered the HTML code to make it a 500 x 500 sized square rather than 100 X 100
+Here's what the dimensions of the box looked like before 
 
+![dimensions_of_box](./dimensions_of_box.png)
+Moreover, when I was trying to debug with Kassia, we communicated via Slack. She kept on saying the code worked for her but it didn't work on my computer. Turns out there are these ghost numbers, presumably that appeared when I copied a debugged code from Slack. (notice the <0X200b> in gray)
+
+Also, to note, in my original temperature code from previous weeks, I had used the variables TX and TI to indiciate the temperature and the initial temperature respectively. However, it seems to coincide with some other variable names in ESP32 or the wifi communication process. Thus, I got a lot of error messages and had to change it to TE and T0 respectively.   
+![grayedout](./grayedout.png)
 
 ## Reflections
 
