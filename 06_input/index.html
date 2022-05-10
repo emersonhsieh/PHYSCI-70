@@ -16,9 +16,13 @@
 
 
   #Background on Project
-
-## I had a really emotionally week + was trying to book an appointment for HUHS; if you see this message, this means this page hasn't been finished yet but will be shortly completed. Don't want to get to details here, but reach out if you have any questions
-
+So, today, I will be doing three things
+1. Make a capacitive sensor to measure a physical quantity with your microcontroller.
+- I will discuss my three versions of this
+2. Select another sensor of your choosing (temperature, microphone, etc.).
+- I will specifically be using a thermosister. 
+3. Calibrate each sensor and visualize data in the form of a table or graph. Discuss the relationship between the signals recorded by your microcontroller and the physical quantities that you're measuring.
+- I will be discussing how I did this in each section. 
  
 # Thermosister
 
@@ -26,7 +30,14 @@ My potential final project is related to composting toilets. Hence, I thought it
 
 ![termosister](./thermosister_breadboard.jpg)
 
-I then looked at the sample code corresponding to the thermosister and played around with it. Notably, the top 
+I then looked at the sample code corresponding to the thermosister and played around with it. Notably, the top display types in the degrees for Kelvin and Celsius. However, it only prints the graph for the 
+
+This turned out to be a larger challenge than originally thought. I tried putting print commands in various locations, all to no luck. 
+
+
+
+## Calibration
+To calibrate it, I borrowed a thermometer from my lab and compared it to the temperature that I was getting on my serial monitor. It was about 11 degrees C. Hence, I accounted for that in my code by subtracting 11 degrees when calculating temperature. 
 
 # Capacitative sensing + Sound 
 
