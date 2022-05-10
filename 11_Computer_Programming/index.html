@@ -29,12 +29,19 @@ I wanted to use a monitor that could use sensors to tell you if the compost is r
 
 Hence, for some places where there is nearby router access, this may be a viable option in lieu of my final project setup where the ESP32 acts as an access point. 
 
+## references
+Random nerd tutorials: https://randomnerdtutorials.com/esp32-esp8266-firebase-gauges-charts/
+Nathan's website on firebase: https://nathanmelenbrink.github.io/ps70/10_networking/huzzah1b.html
+
+These were both fantastic resources I referenced throughout this week. 
 ## Arduino code and Breadboard (Input)
 I set up my breadboard to have a thermosister. Thus, temperature could be an input. I've worked on running and calibrated the thermositer in a previous week (see electronic input week)
 
 Here is a picture of my breadboard. I simplified some of the wiring for this week and tested it out. I know it works because there is the expected temperature written out on the serial monitor and serial plotter when I run the code! 
 
 ![week 11 breadboard](./week_11_breadboard.jpg)
+
+Below is my code. I
 
 I adapted my temperature code to have an if statement. That way, it knows to tell Firebase that the compost is not ready if the temperature is below 25C. However, if the temperature is above 25C, it tells Firebase that the compost is ready. 
 
