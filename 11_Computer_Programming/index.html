@@ -41,9 +41,15 @@ Here is a picture of my breadboard. I simplified some of the wiring for this wee
 
 ![week 11 breadboard](./week_11_breadboard.jpg)
 
-Below is my code. In the first part of the code, I set up the Arduino software to connect with 
+Below is my code. In the first part of the code, I set up the Arduino software to connect with Firebase. I was able to get information like the Firebase_host after I set up a Firebase account and created a project specifically for the composting toilet. The Random Nerd Tutorials Website I linked above goes through how to set up a project. 
 
-I adapted my temperature code to have an if statement. That way, it knows to tell Firebase that the compost is not ready if the temperature is below 25C. However, if the temperature is above 25C, it tells Firebase that the compost is ready. 
+I referenced the LED code on Nathan's website (linked the resources header above) for the parts that I needed to plug in the information of my Firebase and Wifi. I also made sure to have the Firebase library and Wifi library installed. 
+
+I then decided to only include Celsius (unlike prior to week 6, where there were different units like Kelvin and Farenheit and corresponding plots) for the temperature. 
+
+I wrote in an if statement for my temperature code. That way, it knows to tell Firebase that the compost is not ready if the temperature is below 25C. However, if the temperature is above 25C, it tells Firebase that the compost is ready. For future reference, Rob also has a temperature code on his website that could also be adapted in (https://roberthart56.github.io/SCFAB/SC_lab/Sensors/Thermistor/thermistor_read.txt) to work on Firebase. 
+
+
 
 <pre><code>
 #include <WiFi.h>                                 // esp32 library
@@ -96,7 +102,7 @@ void setup() {
 
 void loop() {
 
-  Firebase.get(firebaseData, "/TEMP_STATUS");                     // get led status input from firebase
+  Firebase.get(firebaseData, "/TEMP_STATUS");                     // get input from firebase
   fireString = firebaseData.stringData();                        // change to e.g. intData() or boolData()
   Serial.println(fireString);
 
