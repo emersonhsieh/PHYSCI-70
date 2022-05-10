@@ -9,6 +9,11 @@
 <body style="padding-top: 60px;">
 <xmp theme="journal" style="display:none;">
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>  
+
 
 <div class="container-fluid">
 
@@ -51,7 +56,7 @@ I wrote in an if statement for my temperature code. That way, it knows to tell F
 
 
 
-<pre><code>
+<pre><code class = "language-arduino">
 #include <WiFi.h>                                 // esp32 library
 #include <FirebaseESP32.h>                        // firebase library
 
