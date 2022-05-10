@@ -29,6 +29,84 @@ I set up my breadboard to have a thermositer. Thus, temperature could be an inpu
 
 I first had to 
 
+<pre><code>
+#include <WiFi.h>                                 // esp32 library
+#include <FirebaseESP32.h>                        // firebase library
+
+#define FIREBASE_HOST "https://composting-toilet-default-rtdb.firebaseio.com/"  // the project name address from firebase id
+#define FIREBASE_AUTH "aVCTxxSc8jW5FmuHXf9d4qV5meHiMNsqkecpMDJv"                          // the secret key generated from firebase
+#define WIFI_SSID "MAKERSPACE"                                // input your home or public wifi name
+#define WIFI_PASSWORD "12345678"                            // password of wifi ssid
+
+String fireString = "";                                          // led status received from firebase
+#define RT0 10000   // Ω
+#define B 3977      // K
+//--------------------------------------
+
+
+#define VCC 5    //Supply voltage
+#define R 10000  //R=10KΩ
+
+//Variables
+float RT, VR, ln, VRT, TE, TI;
+
+
+//Define FirebaseESP32 data object
+FirebaseData firebaseData;
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);                          // try to connect with wifi
+  TE = 0;
+  TI = 25 + 273.15;                 //Temperature T0 from datasheet, conversion from Celsius to kelvin
+
+  Serial.print("Connecting to ");
+  Serial.print(WIFI_SSID);
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+
+  Serial.println();
+  Serial.print("Connected to ");
+  Serial.println(WIFI_SSID);
+  Serial.print("IP Address is : ");
+  Serial.println(WiFi.localIP());                                // print local IP address
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);                  // connect to firebase
+  Firebase.reconnectWiFi(true);
+  Firebase.set(firebaseData, "/TEMP_STATUS", "NOT READY");              // set initial string of "OFF"
+}
+
+void loop() {
+
+  Firebase.get(firebaseData, "/TEMP_STATUS");                     // get led status input from firebase
+  fireString = firebaseData.stringData();                        // change to e.g. intData() or boolData()
+  Serial.println(fireString);
+
+
+  VRT = analogRead(A0);              //Acquisition analog value of VRT
+  VRT = (5.00 / 1023.00) * VRT;      //Conversion to voltage
+  VR = VCC - VRT;
+  RT = VRT / (VR / R);               //Resistance of RT
+
+  ln = log(RT / RT0);
+  TE = (1 / ((ln / B) + (1 / TI))); //Temperature from thermistor
+
+  TE = TE - 273.15 -11;                 //Conversion to Celsius
+
+  if (TE> 25) { 
+     Firebase.setString(firebaseData,"/TEMP_STATUS", "ready");
+  }
+  else {
+     Firebase.set(firebaseData,"/TEMP_STATUS", "not ready");
+  }
+  
+  delay(1000);                                 // not strictly necessary
+}  
+
+</code></pre>  
+
 To note, I had to use the Makerspace Wifi since it has less security, which allows this to work. 
 
 This then feeds it into the Firebase
