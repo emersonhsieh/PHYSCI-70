@@ -25,13 +25,13 @@ Although I plan on using my ESP32 for my final project as the access point, I wa
 
 
 ## Arduino code and Breadboard (Input)
-I set up my breadboard to have a thermositer. Thus, temperature could be an input. I've worked on running and calibrated the thermositer in a previous week (see electronic input week)
+I set up my breadboard to have a thermosister. Thus, temperature could be an input. I've worked on running and calibrated the thermositer in a previous week (see electronic input week)
 
 Here is a picture of my breadboard. I simplified some of the wiring for this week and tested it out. It works! 
 
-
-I adapted my temperature code 
 ![week 11 breadboard](./week_11_breadboard.jpg)
+
+I adapted my temperature code to have an if statement. That way, it knows to tell Firebase that the compost is not ready if the temperature is below 25C. However, if the temperature is above 25C
 
 <pre><code>
 #include <WiFi.h>                                 // esp32 library
