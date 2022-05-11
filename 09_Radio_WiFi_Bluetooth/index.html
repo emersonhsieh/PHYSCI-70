@@ -35,7 +35,7 @@ The premise of my final project is that people can check in on if their compost 
 
 ## Here is a big picture overview of what happens 
 
-1. First, I will wire up my breadboard for the thermositer and make sure my temperature code is working
+1. First, I will wire up my breadboard for the thermistor and make sure my temperature code is working
 2. Them , I will wire up my breadboard for the gas sensor and make sure my gas sensing code is working. 
 3. With each of these components underway, I will then merge these components together and get the access point component to work. 
 4. I will then have code to essentially set up the access point stuff, for instance putting in information like what I want to call my ESP32 access point and the password to login to the access point. I will also design the website to have three buttons. One will show if the gas levels indicate that the compost from the composting toilet is ready. One button will show if, overall, the compost is ready.
@@ -44,7 +44,7 @@ The premise of my final project is that people can check in on if their compost 
 7. I will then press the restart button on my Arduino, and watch as the website updates to see if my compost is ready.
 
 
-# Thermosister 
+# Thermistor 
 I first ran the codes for the thermosister and the gas sensor separately to make sure it was working. I decided to do this before trying to integrate the accesspoint feature. 
 For some reason, although I've previously worked with the following temperature code, it just wouldn't work this time. I tried the files I worked with and adapted previously by swapping out different variable names and ensuring the Farenheit temperature was being printed out. I also went to the source and tried using the original code. However, I kept on getting negative temperatures and other malfunctions. 
 
@@ -387,16 +387,16 @@ The Serial Monitor told me that the IP address was http://192.168.4.1/. Hence, w
 ![compost_interface](./compost_interface.png)
 
 # Electronics 
-Here is what the breadboard looked like with just the thermositer on it that didn't work for the accesspoint because the input wire was plugged into A0.
+Here is what the breadboard looked like with just the thermistor on it that didn't work for the accesspoint because the input wire was plugged into A0.
 
 ![thermositer_didntwork](./thermistor_didntwork.jpg)
 
-Here is what the breadboard looked like with just the thermositer on it. 
+Here is what the breadboard looked like with just the thermistor on it. 
 
 
 ![thermositer_work](./thermositer_work.jpg)
 
-Here is what the breadboard looked like with both the thermositer and gas sensor on. 
+Here is what the breadboard looked like with both the thermistor and gas sensor on. 
 
 ![gas_sensor](./gas_sensor_thermositer.jpg)
 
