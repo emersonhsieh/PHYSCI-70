@@ -48,6 +48,7 @@ The premise of my final project is that people can check in on if their compost 
 I first ran the codes for the thermosister and the gas sensor separately to make sure it was working. I decided to do this before trying to integrate the accesspoint feature. 
 For some reason, although I've previously worked with the following temperature code, it just wouldn't work this time. I tried the files I worked with and adapted previously by swapping out different variable names and ensuring the Farenheit temperature was being printed out. I also went to the source and tried using the original code. However, I kept on getting negative temperatures and other malfunctions. 
 
+
 Code adapted from (https://create.arduino.cc/projecthub/Marcazzan_M/how-easy-is-it-to-use-a-thermistor-e39321) that didn't work this time: 
 
 
@@ -182,14 +183,21 @@ I then integrated the different pieces together.
 ## First of all, I tried integrating the temperature aspect. It was super weird because Rob's temperature code worked for me when I was just trying to detect temperature without the access point aspect. However, once I tried integrating it into the access point code and trying to make the temperature detectable through my IP address, it didn't really work 
 However, ADC2 pins cannot be used while using the WiFi library (most ESP32 projects). ADC 1 pins are okay - that's 32-39, which, for the adafruit Huzzah, includes 32=A7, 33=A9, 34=A2, 36=A4, 39=A3. 
 
-Thus, that's why I couldn't initially have the temperature show up
+Thus, that's why I couldn't initially have the temperature show up correctly. 
+
+For instance, this was my interface, which was wrong given that I shouldn't be getting a negative temperature. 
+
+![negative_tem](./negative_temp.png)
 
 
 
-Here are some things I found out and notes that will be helpful if I were to do the project again. 
-- Each of my subparts (temperature, gas, accesspoint) had a different Baud associated with it. I chose the highest Baud (11520) to use as the Baud for my final integration
 
 Below is the final full code. 
+
+Basically, in the first part of the code, I declared all the necessary variables. Basically, I took the declared variables from the three parts and included it in. 
+
+Each of my subparts (temperature, gas, accesspoint) had a different Baud associated with it. I chose the highest Baud (11520) to use as the Baud for my final integration
+
 
 <pre><code>
 // Load Wi-Fi library
@@ -381,9 +389,10 @@ void loop(){
 
 </code></pre>  
 
-The Serial Monitor told me that the IP address was http://192.168.4.1/. Hence, when I connect to ESP32-Access-Point and go to the website. I am able to see this interface: 
+The Serial Monitor told me that the IP address was http://192.168.4.1/. Hence, when I connect to ESP32-Access-Point and go to the website. I am able to see the interface. 
 
 
+Final interface:
 ![compost_interface](./compost_interface.png)
 
 # Electronics 
