@@ -157,38 +157,29 @@ Here is the temperature that displayed on the Serial monitor:
 There are lots of different types of gas sensors. I decided to use a MQ-4 because that detects methane and CNG gas (compressed methane), since methane is a byproduct of compost. This website details what the different gas sensors detect for future reference: https://www.mysensors.org/build/gas
 ![gas](./gas_sensor.png)
 
-I then 
+I then tested the gas sensor to make sure it worked. To note, the gas sensor lights up green when it is plugged in correctly. 
 
 
 
 # Integrating the different codes 
 Now, essentially, I have three pieces. I have the temperature sensing code. I have the gas sensing code. And lastly, I have the sample code on the Random Nerd Tutorials Website (https://randomnerdtutorials.com/esp32-access-point-ap-web-server/) that essentially tells you if your LED light is on or off. 
 
+
+I then integrated the different pieces together. First of all, I tried integrating the temperature aspect. 
+
+Here are some things I found out and notes that will be helpful if I were to do the project again. 
+- When I ran the temperature 
+
+
+Below is the final full code. 
+
 <pre><code>
 // Load Wi-Fi library
 #include <WiFi.h>
 
-
-//--------------------------------------
-
-
-
-
-
-
-#define VCC 5    //Supply voltage
-#define R 10000  //R=10KΩ
-
-//from Rob Hart code
-int ThermistorPin = A0;
-int Vo;
-float R1 = 10000;
-float R2, T;
-float A = 3.354e-03;
-float B = 2.5698e-4;
-
-float RT, VR, ln, VRT, TE, TI;
-String TEString;
+//Define for gas sensor 
+#define MQ4pin (A2) //changed from A0
+float sensorValue;  //variable to store sensor value
 
 // Replace with your network credentials
 const char* ssid     = "ESP32-Access-Point";
@@ -200,21 +191,25 @@ WiFiServer server(80);
 // Variable to store the HTTP request
 String header;
 
-// Auxiliar variables to store the current output state
-String temperatureState = "not ready";
-String gasState = "not ready";
 
-// Assign input
-const int temperaturePin = A0;
-const int output27 = A3;
+//taken from Rob's code
+int ThermistorPin = A3; //can't be A0 pin according to https://nathanmelenbrink.github.io/ps70/10_networking/setup.html
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+String TEString;
+String temperatureState;
+String gasState;
+String overallState;
 
 void setup() {
   Serial.begin(115200);
+  analogReadResolution(12);                 //Using a 32-bit ATSAM microcontroller that has up to 12 bit resolution. 4095 max. Taken from Rob's code
   // Initialize the output variables as outputs
-  TE = 0;
-  TI = 25 + 273.15;                 //Temperature T0 from datasheet, conversion from Celsius to kelvin
-  analogReadResolution(12);        
   
+
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Setting AP (Access Point)…");
   // Remove the password parameter, if you want the AP (Access Point) to be open
@@ -228,6 +223,53 @@ void setup() {
 }
 
 void loop(){
+  //Temperature
+  Vo = analogRead(ThermistorPin);
+  //Serial.println(ThermistorPin);
+  R2 = R1 * 1/(4096.0 / (float)Vo - 1.0);         //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B*log(R2/R1) ));                 // Calculate temperature using datasheet formula.
+  T = T - 273.15;                                   //Convert from Kelvin to Celcius.
+ 
+
+  Serial.print("Temperature: "); 
+  Serial.print(T);
+  Serial.println("C"); 
+
+  delay(500);
+  TEString = String(T);
+  if (T>30) {
+    temperatureState ="ready";
+  } else {
+    temperatureState = "not ready";
+  }
+
+  // Temperature end
+
+  //Gas 
+   sensorValue = analogRead(MQ2pin); // read analog input pin 0
+  
+  Serial.print("Sensor Value: ");
+  Serial.print(sensorValue);
+  
+  Serial.println("");
+  delay(2000); // wait 2s for next reading
+  if (sensorValue > 300) {
+    gasState ="ready";
+  } else {
+    gasState = "not ready";
+  }
+
+  //Gas end
+
+  //Overall Start
+  if (gasState == "ready" & temperatureState == "ready") {
+    overallState = "ready";
+  } else { 
+    overallState = "not ready";
+    
+  }
+  //Overall end
+   
   WiFiClient client = server.available();   // Listen for incoming clients
 
   if (client) {                             // If a new client connects,
@@ -249,6 +291,8 @@ void loop(){
             client.println("Connection: close");
             client.println();
             
+         
+            
             // Display the HTML web page
             client.println("<!DOCTYPE html><html>");
             client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
@@ -259,45 +303,37 @@ void loop(){
             client.println(".button { background-color: #FF0000; border: none; color: white; padding: 16px 40px;"); //changed to Red
             client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
             client.println(".button2 {background-color: #4CAF50 ;}</style></head>"); //changed to Green
+       
             
             // Web Page Heading
             client.println("<body><h1>Is the compost of your composting toilet ready? </h1>");
-
-            //temperature
-              Vo = analogRead(ThermistorPin);
-              R2 = R1 * 1/(4096.0 / (float)Vo - 1.0);         //Calculate resistance of thermistor from voltage divider math.
-              T = (1.0 / (A + B*log(R2/R1) ));                 // Calculate temperature using datasheet formula.
-              T = T - 273.15;                                   //Convert from Kelvin to Celcius.
- 
-
-              Serial.print("Temperature: "); 
-              Serial.print(T);
-              Serial.println("C"); 
-
-              delay(500);
-}
-
-             if (T> 0){
-                temperatureState ="ready";
-             } else {
-                temperatureState = "not ready";
-             }
             
-          
-//temperature 
-          
+         
             client.println("Temperature indicates that compost is " + temperatureState + "</p>");
-            client.println("Temperature is " + TEString + "</p>");
+            client.println("Temperature is " + TEString + "C" + "</p>");
+            // If the output27State is off, it displays the ON button       
             if (temperatureState=="not ready") {
               client.println("<p><a href=\"/26/on\"><button class=\"button\">NOT READY</button></a></p>");
             } else {
               client.println("<p><a href=\"/26/off\"><button class=\"button button2\">READY</button></a></p>");
             } 
+            client.println("</body></html>");
 
-// gas
+            // Gas website 
          
             client.println("Gas levels indicate that compost is " + gasState + "</p>");
+            client.println("Gas level is " + String(sensorValue) + " units" + "</p>");
               if (gasState == "not ready") { 
+              client.println("<p><a href=\"/27/on\"><button class=\"button\">NOT READY</button></a></p>");
+            } else {
+              client.println("<p><a href=\"/27/off\"><button class=\"button button2\">READY</button></a></p>");
+            }
+              client.println("</body></html>");
+
+            // Overall  
+
+            client.println("Overall, your compost is " + overallState + "</p>");
+            if (overallState == "not ready") { 
               client.println("<p><a href=\"/27/on\"><button class=\"button\">NOT READY</button></a></p>");
             } else {
               client.println("<p><a href=\"/27/off\"><button class=\"button button2\">READY</button></a></p>");
