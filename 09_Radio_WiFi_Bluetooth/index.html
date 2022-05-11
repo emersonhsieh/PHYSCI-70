@@ -33,6 +33,15 @@ This in contrast to when a router instead acts as an access point.
 
 The premise of my final project is that people can check in on if their compost is ready based on a couple of factors like temperature and methane levels. Hence, it makes sense to have ESP32 act as an access point, because since the toilet can be in more rural areas, there might not necessarily be a router nearby.
 
+## Here is a big picture overview of what happens 
+
+1. First, I will wire up my breadboard for the thermositer and make sure my temperature code is working
+2. Them , I will wire up my breadboard for the gas sensor and make sure my gas sensing code is working. 
+3. With each of these components underway, I will then merge these components together and get the access point component to work. 
+4. I will then have code to essentially set up the access point stuff, for instance putting in information like what I want to call my ESP32 access point and the password to login to the access point. I will also design the website to have three buttons. One will show if the gas levels indicate that the compost from the composting toilet is ready. One button will show if, overall, the compost is ready.
+5. When I upload and run the accesspoint temperature + gas code on the Arduino, I should get an IP address in the serial monitor
+6. I will then press the restart button on my Arduino, which will allow me to find the ESP32
+
 
 # Thermosister 
 I first ran the codes for the thermosister and the gas sensor separately to make sure it was working. I decided to do this before trying to integrate the accesspoint feature. 
@@ -167,7 +176,9 @@ I then tried running the code I found here It's a really simple code that Moreov
 Now, essentially, I have three pieces. I have the temperature sensing code. I have the gas sensing code. And lastly, I have the sample code on the Random Nerd Tutorials Website (https://randomnerdtutorials.com/esp32-access-point-ap-web-server/) that essentially tells you if your LED light is on or off through accesspoint. 
 
 
-I then integrated the different pieces together. First of all, I tried integrating the temperature aspect. It was super weird because although Rob's temperature code worked for me when I was just trying to , it didn't really work 
+I then integrated the different pieces together. 
+
+## First of all, I tried integrating the temperature aspect. It was super weird because Rob's temperature code worked for me when I was just trying to detect temperature without the access point aspect. However, once I tried integrating it into the access point code and trying to make the temperature detectable through my IP address, it didn't really work 
 However, ADC2 pins cannot be used while using the WiFi library (most ESP32 projects). ADC 1 pins are okay - that's 32-39, which, for the adafruit Huzzah, includes 32=A7, 33=A9, 34=A2, 36=A4, 39=A3. 
 
 Thus, that's why I couldn't initially have the temperature show up
@@ -175,7 +186,6 @@ Thus, that's why I couldn't initially have the temperature show up
 
 
 Here are some things I found out and notes that will be helpful if I were to do the project again. 
-- When I ran the temperature 
 - Each of my subparts (temperature, gas, accesspoint) had a different Baud associated with it. I chose the highest Baud (11520) to use as the Baud for my final integration
 
 Below is the final full code. 
