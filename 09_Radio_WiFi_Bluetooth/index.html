@@ -12,39 +12,101 @@
 
 <div class="container-fluid">
 
-  ### Week 8: Radio, WiFi, Bluetooth (IoT)
+  ### Week 9: Radio, WiFi, Bluetooth (IoT)
 
- ## For another week that incorporates Wifi documentation, check out my work on week 11! :) 
+ ## For another week that incorporates Wifi documentation, check out my work on week 11, which mentions both the Wifi component and also the html display component! :) 
+
+ ## Assignment
+ Demonstrate communication between a microcontroller and another device. Optionally, work with a partner to control a device remotely.
+
   #Background on Project
-Part of my final project includes communication between my microcontroller and another device. In essence, I want to 
+Part of my final project includes communication between my microcontroller and another device. In essence, I want to have my temperature and my gas sensor to be the input and 
 Thus, this week, I am trying to see if I could have my ESP32 act as an access point! 
 
+What is an access point? Well, this picture from Random nerd tutorials sums it up pretty well. Essentially, when the ESP32 serves as an accesspoint, it looks something like the following: 
 ![accesspoint_2](./accesspoint_2.png)
 
-What is an access point? Well, this picture from Random nerd tutorials sums it up pretty well. Essentially, when the ESP32 serves as an accesspoint, it looks something like the following: 
-
-![accesspoint_1](./accesspoint_1.png)
-
+The way Randomnerdtutorials describes it is "In simple words, when you set the ESP32 as an access point you create its own Wi-Fi network and nearby Wi-Fi devices (stations) can connect to it (like your smartphone or your computer)."
 
 This in contrast to when a router instead acts as an access point. 
+ ![accesspoint_1](./accesspoint_1.png)
+
+The premise of my final project is that people can check in on if their compost is ready based on a couple of factors like temperature and methane levels. Hence, it makes sense to have ESP32 act as an access point, because since the toilet can be in more rural areas, there might not necessarily be a router nearby.
+
+
+# Thermosister and Gas sensor
+
+I first ran the codes for the thermosister and the gas sensor separately to make sure it was working. I decided to do this before trying to integrate the accesspoint feature. 
+For some reason, although I've previously worked with the following temperature code, it just wouldn't work this time. I kept on getting negative temperatures and other malfunctions. 
+
+Code adapted from () that didn't work this time: 
+
+
+Hence, I decided to run Rob Hart's temperature code instead, and this went well. 
+Code from Rob Hart: 
+<pre><code>
+/*
+Thermistor_read.  Robert Hart June 2020.
+Using  datasheet for 10k NTC thermistor (Digikey Part No.).  https://www.vishay.com/docs/29049/ntcle100.pdf
+with constants A and B to calculate Temperature from Resistance.
+10K resitor in series to make a simple voltage divider.
+*/
+int ThermistorPin = A0;
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+
+void setup() {
+Serial.begin(9600);
+analogReadResolution(12);                 //Using a 32-bit ATSAM microcontroller that has up to 12 bit resolution. 4095 max.
+}
+
+void loop() {
+
+  Vo = analogRead(ThermistorPin);
+  R2 = R1 * 1/(4096.0 / (float)Vo - 1.0);         //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B*log(R2/R1) ));                 // Calculate temperature using datasheet formula.
+  T = T - 273.15;                                   //Convert from Kelvin to Celcius.
  
 
-# Thermosister
+  Serial.print("Temperature: "); 
+  Serial.print(T);
+  Serial.println("C"); 
 
-My potential final project is related to composting toilets. Hence, I thought it would be valuable to look into making a thermosister, which could be used in examples like measuring the temperature of the compost that comes out of the composting toilet. To do this, I looked at the Arduino create website as reference (https://create.arduino.cc/projecthub/Marcazzan_M/how-easy-is-it-to-use-a-thermistor-e39321). I then recreated the circuit displayed in the pictorial. 
+  delay(500);
+}  
+</code></pre>  
 
-![termosister](./thermosister_breadboard.jpg)
+Here is the temperature that displayed on the Serial monitor:
+ ![rob_hart_temp_code_serial_monitor](./rob_hart_temp_code_serial_monitor.png)
 
-I then looked at the code corresponding to the thermosister and played around with it. Notably, the top 
 
-# Capacitative sensing + Sound 
 
-During lab on Thursday, Rob and I explored using capacitative sensing for sound. Essentially, we had put copper sheets in the metal bowl like so 
 
-![sensor]](./sensing_1.png)
+There are lots of different types of gas sensors. I decided to use a MQ-4 because that detects methane, which is a byproduct of compost. 
+![gas](./gas_sensor.png)
+
+
+
+
+
+# Integrating the different codes 
+Now, essentially, I have three pieces. I have the temperature sensing code. I have the gas sensing code. And lastly, I have the sample code on the Random Nerd Tutorials Website (https://randomnerdtutorials.com/esp32-access-point-ap-web-server/) that essentially tells you if your LED light is on or off. 
+
+The Serial Monitor told me that the IP address was http://192.168.4.1/. Hence, when I connect to ESP32-Access-Point and go to the website. I am able to see this interface: 
+
+
+
+
 
 
 #Reflections
+
+This was honestly so cool. I didn't even know accesspoint was a thing. 
+
+Although it wasn't a focus in this documentation, I also got to play around with the ESP32 Cam in class and lab, which was loads of fun. The Huzzah Cam had surprisingly good quality and had a similar setup idea where the serial monitor informs the address to go to. Here is more information about the ESP32 Cam: https://nathanmelenbrink.github.io/ps70/10_networking/setup.html! 
 
 
 </xmp>
