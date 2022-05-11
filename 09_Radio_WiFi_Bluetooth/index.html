@@ -165,7 +165,12 @@ I then tested the gas sensor to make sure it worked. To note, the gas sensor lig
 Now, essentially, I have three pieces. I have the temperature sensing code. I have the gas sensing code. And lastly, I have the sample code on the Random Nerd Tutorials Website (https://randomnerdtutorials.com/esp32-access-point-ap-web-server/) that essentially tells you if your LED light is on or off. 
 
 
-I then integrated the different pieces together. First of all, I tried integrating the temperature aspect. 
+I then integrated the different pieces together. First of all, I tried integrating the temperature aspect. It was super weird because although Rob's temperature code worked for me when I was just trying 
+However, ADC2 pins cannot be used while using the WiFi library (most ESP32 projects). ADC 1 pins are okay - that's 32-39, which, for the adafruit Huzzah, includes 32=A7, 33=A9, 34=A2, 36=A4, 39=A3. 
+
+Thus, that's why I couldn't initially have the temperature show up
+
+
 
 Here are some things I found out and notes that will be helpful if I were to do the project again. 
 - When I ran the temperature 
