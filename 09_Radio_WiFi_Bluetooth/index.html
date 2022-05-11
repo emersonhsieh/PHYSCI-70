@@ -147,7 +147,6 @@ void loop() {
 </code></pre>  
 
 
-
  Thus, I decided to use Rob's code for my final rendition. 
 
 
@@ -158,10 +157,14 @@ There are lots of different types of gas sensors. I decided to use a MQ-4 becaus
 
 I then tested the gas sensor to make sure it worked. To note, the gas sensor lights up green when it is plugged in correctly. 
 
+I then tried running the code I found here It's a really simple code that Moreover, the gas sensor needs time to warm up, so it accounts for that time also. 
+
+ ![gas_try](./gas_try.png)
+
 
 
 # Integrating the different codes 
-Now, essentially, I have three pieces. I have the temperature sensing code. I have the gas sensing code. And lastly, I have the sample code on the Random Nerd Tutorials Website (https://randomnerdtutorials.com/esp32-access-point-ap-web-server/) that essentially tells you if your LED light is on or off. 
+Now, essentially, I have three pieces. I have the temperature sensing code. I have the gas sensing code. And lastly, I have the sample code on the Random Nerd Tutorials Website (https://randomnerdtutorials.com/esp32-access-point-ap-web-server/) that essentially tells you if your LED light is on or off through accesspoint. 
 
 
 I then integrated the different pieces together. First of all, I tried integrating the temperature aspect. It was super weird because although Rob's temperature code worked for me when I was just trying to , it didn't really work 
@@ -173,7 +176,7 @@ Thus, that's why I couldn't initially have the temperature show up
 
 Here are some things I found out and notes that will be helpful if I were to do the project again. 
 - When I ran the temperature 
-
+- Each of my subparts (temperature, gas, accesspoint) had a different Baud associated with it. I chose the highest Baud (11520) to use as the Baud for my final integration
 
 Below is the final full code. 
 
