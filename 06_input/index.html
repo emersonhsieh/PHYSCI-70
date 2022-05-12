@@ -24,7 +24,7 @@ So, today, I will be doing three things
 3. Calibrate each sensor and visualize data in the form of a table or graph. Discuss the relationship between the signals recorded by your microcontroller and the physical quantities that you're measuring.
 - I will be discussing how I did this in each section. 
  
-# Thermosister
+# Thermistor
 
 My potential final project is related to composting toilets. Hence, I thought it would be valuable to look into making a thermosister, which could be used in examples like measuring the temperature of the compost that comes out of the composting toilet. To do this, I looked at the Arduino create website as reference (https://create.arduino.cc/projecthub/Marcazzan_M/how-easy-is-it-to-use-a-thermistor-e39321). I then recreated the circuit displayed in the pictorial. 
 
@@ -34,20 +34,30 @@ I then looked at the sample code corresponding to the thermosister and played ar
 
 ![temp original](./temperature-display-original.png)
 
-I thus played around with the code in attempts to have the farenheit temperature be displayed in the graph but also have the temperature be explicity written out. This turned out to be a larger challenge than originally thought. I tried putting print commands in various locations, all to no luck. I also checked the serial monitor constantly to ensure that values were being outputted onto the serial monitor. 
+I thus played around with the code in attempts to have the farenheit temperature be displayed in the graph but also have the temperature be explicity written out on the serial plotter. This turned out to be a larger challenge than originally thought. I tried putting print commands in various locations, all to no luck. I also checked the serial monitor constantly to ensure that values were being outputted onto the serial monitor. 
 
 
-Ultimately, this was the code that
+Ultimately, this was the code that I used at the end. I was able to get the Farenheit temperature to be both displayed on the graph and for the value to be typed out alongside the other numbers as well. 
 
 
-## Calibration
+
+## Calibration of temperature 
 To calibrate it, I borrowed a thermometer from my lab and compared it to the temperature that I was getting on my serial monitor. It was about 11 degrees C. Hence, I accounted for that in my code by subtracting 11 degrees when calculating temperature. 
 
-# Capacitative sensing + Sound 
+# Capacitative sensing 
+
+## Sound 
 
 During lab on Thursday, Rob and I explored using capacitative sensing for sound. Essentially, we had put copper sheets in the metal bowl like so 
 
 ![sensor]](./sensing_1.png)
+
+We noticed that there was a peak in the serial plotter every time we yelled into the bowl or clapped into our hands, presumably due to the vibration of the air and how that affects the capacitative sensing. 
+
+## Distance
+
+
+My little brother, who was on Spring break and with me at the time, suggested that I use the vice in the lab instead. That way, I have more control over the actual distance. 
 
 
 #Reflections
