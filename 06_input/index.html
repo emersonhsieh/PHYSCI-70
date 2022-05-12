@@ -36,11 +36,21 @@ I then looked at the sample code corresponding to the thermosister and played ar
 
 I thus played around with the code in attempts to have the farenheit temperature be displayed in the graph but also have the temperature be explicity written out on the serial plotter. This turned out to be a larger challenge than originally thought. I tried putting print commands in various locations, all to no luck. I also checked the serial monitor constantly to ensure that values were being outputted onto the serial monitor. 
 
+For instance, this is an example of something that didn't work: You can see that the numbers overlap with each other 
+! [temp-didnt-work-1](./temp-didnt-work-1.png)
+Here's also something that didn't work:
+![final_temp_graph](./failed-attempt-2.png)
+
+
+Ultimately, I was able to play around and get the display on the serial plotter I wanted: aka the numerical writing of the temperature in C, F, K, as well as the plotting of the F. 
+![final_temp_graph](./final_temp_graph.png)
+
+
 
 Ultimately, this was the code that I used at the end. I was able to get the Farenheit temperature to be both displayed on the graph and for the value to be typed out alongside the other numbers as well. 
 
 <pre><code>
-  
+
 //Thermometer with thermistor
 
 /*thermistor parameters:
@@ -105,6 +115,8 @@ void loop() {
 
 }
 </code></pre>  
+
+
 
 
 ## Calibration of temperature 
