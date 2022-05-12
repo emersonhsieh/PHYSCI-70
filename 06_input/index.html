@@ -39,6 +39,72 @@ I thus played around with the code in attempts to have the farenheit temperature
 
 Ultimately, this was the code that I used at the end. I was able to get the Farenheit temperature to be both displayed on the graph and for the value to be typed out alongside the other numbers as well. 
 
+<pre><code>
+  
+//Thermometer with thermistor
+
+/*thermistor parameters:
+ * RTI: 10 000 Ω
+ * B: 3977 K +- 0.75%
+ * TI:  25 C
+ * +- 5%
+ */
+
+//These values are in the datasheet
+#define RTI 10000   // Ω
+#define B 3977      // K
+//--------------------------------------
+
+
+#define VCC 3.3    //Supply voltage
+#define R 10000  //R=10KΩ
+
+//Variables
+float RT, VR, ln, TE, TI, VRT;
+
+void setup() {
+  Serial.begin(9600);
+  TI = 25 + 273.15;                 //Temperature TI from datasheet, conversion from Celsius to kelvin
+}
+
+void loop() {
+  VRT = analogRead(A0);              //Acquisition analog value of VRT
+  Serial.println(VRT);
+  VRT = (3.30 / 1023.00) * VRT;      //Conversion to voltage
+  VR = VCC - VRT;
+  RT = VRT / (VR / R);               //Resistance of RT
+  Serial.println("RT/RTI");
+  Serial.println(RT/RTI);
+
+  ln = log(RT / RTI);
+  Serial.println("Ln");
+  Serial.println(ln);
+  TE = (1 / ((ln / B) + (1 / TI))); //Temperature from thermistor
+
+  TE = TE - 273.15 -11;                 //Conversion to Celsius
+
+  // Serial.print("Temperature:");
+  // Serial.print("\t");
+
+  
+  Serial.print(TE);
+  Serial.print("C\t\t");
+  
+  Serial.print(TE + 273.15);        //Conversion to Kelvin
+  Serial.print("K\t\t");
+  
+  Serial.print((TE * 1.8) + 32);    //Conversion to Fahrenheit
+  Serial.print((TE * 1.8) + 32);
+  Serial.println("F\t\t");
+
+  
+  delay(500);
+
+ // if TE > 26
+  //else 
+
+}
+</code></pre>  
 
 
 ## Calibration of temperature 
