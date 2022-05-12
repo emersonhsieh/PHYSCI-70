@@ -36,6 +36,226 @@ This need for better sanitation has spurred a world-wide effort to brainstorm an
   Thus, my idea is to integrate sensors, specifically a temperature sensor and a sensor that detects methane levels, to tell the user if their compost is ready.
 
 ## Electronics 
+The premise of my electronics component is that I want to have my ESP32 act as an accesspoint. This is especially important to have ESP32 act as an access point rather than rely on an external router, because since the toilet can be in more rural areas, there might not necessarily be a router nearby.
+![accesspoint_2](./accesspoint_2.png) (pictorial taken from Random Nerd Tutorials)
+
+Most of my electronics and code building process can be found on my page for week 9. 
+### To avoid repetition, and to make this page cleaner, I've linked it here https://bluepalace8.github.io/PHYSCI-70/09_Radio_WiFi_Bluetooth/index.html. Please check it out, since it's really neat stuff! 
+
+### Here is a big picture summary + overview of what happens (Again, please check out my documentation for Week 9 for more detail)
+
+1. First, I wired up my breadboard for the thermistor and make sure my temperature code is working
+2. Them , I wired up my breadboard for the gas sensor and make sure my gas sensing code is working. 
+3. With each of these components underway, I then merged these components together and get the access point component to work. 
+4. I then had the code to essentially set up  my ESP32 asthe access point, for instance putting in information like what I want to call my ESP32 access point and the password to login to the access point. I will also design the website to have three buttons. One will show if the gas levels indicate that the compost from the composting toilet is ready. One button will show if, overall, the compost is ready.
+5. When I upload and run the accesspoint temperature + gas code on the Arduino, I got an IP address in the serial monitor
+6. I then login-ed to the ESP32 network and type in the password
+7. I then pressed the restart button on my Arduino, and watch as the website updates to see if my compost is ready.
+
+Here is the breadboard I ultimately used 
+![gas_sensor](./09_Radio_WiFi_Bluetooth/gas_sensor_thermositer.jpg)
+
+This is the final code I used 
+
+<pre><code>
+// Load Wi-Fi library
+#include <WiFi.h>
+
+//Define for gas sensor 
+#define MQ4pin (A2) //changed from A0
+float sensorValue;  //variable to store sensor value
+
+// Replace with your network credentials
+const char* ssid     = "ESP32-Access-Point";
+const char* password = "123456789";
+
+// Set web server port number to 80
+WiFiServer server(80);
+
+// Variable to store the HTTP request
+String header;
+
+
+//taken from Rob's code
+int ThermistorPin = A3; //can't be A0 pin according to https://nathanmelenbrink.github.io/ps70/10_networking/setup.html
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+String TEString;
+String temperatureState;
+String gasState;
+String overallState;
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);                 //Using a 32-bit ATSAM microcontroller that has up to 12 bit resolution. 4095 max. Taken from Rob's code
+  // Initialize the output variables as outputs
+  
+
+  // Connect to Wi-Fi network with SSID and password
+  Serial.print("Setting AP (Access Point)…");
+  // Remove the password parameter, if you want the AP (Access Point) to be open
+  WiFi.softAP(ssid, password);
+
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("AP IP address: ");
+  Serial.println(IP);
+  
+  server.begin();
+}
+
+void loop(){
+  //Temperature
+  Vo = analogRead(ThermistorPin);
+  //Serial.println(ThermistorPin);
+  R2 = R1 * 1/(4096.0 / (float)Vo - 1.0);         //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B*log(R2/R1) ));                 // Calculate temperature using datasheet formula.
+  T = T - 273.15;                                   //Convert from Kelvin to Celcius.
+ 
+
+  Serial.print("Temperature: "); 
+  Serial.print(T);
+  Serial.println("C"); 
+
+  delay(500);
+  TEString = String(T);
+  if (T>30) {
+    temperatureState ="ready";
+  } else {
+    temperatureState = "not ready";
+  }
+
+  // Temperature end
+
+  //Gas 
+   sensorValue = analogRead(MQ2pin); // read analog input pin 0
+  
+  Serial.print("Sensor Value: ");
+  Serial.print(sensorValue);
+  
+  Serial.println("");
+  delay(2000); // wait 2s for next reading
+  if (sensorValue > 300) {
+    gasState ="ready";
+  } else {
+    gasState = "not ready";
+  }
+
+  //Gas end
+
+  //Overall Start
+  if (gasState == "ready" & temperatureState == "ready") {
+    overallState = "ready";
+  } else { 
+    overallState = "not ready";
+    
+  }
+  //Overall end
+   
+  WiFiClient client = server.available();   // Listen for incoming clients
+
+  if (client) {                             // If a new client connects,
+    Serial.println("New Client.");          // print a message out in the serial port
+    String currentLine = "";                // make a String to hold incoming data from the client
+    while (client.connected()) {            // loop while the client's connected
+      if (client.available()) {             // if there's bytes to read from the client,
+        char c = client.read();             // read a byte, then
+        Serial.write(c);                    // print it out the serial monitor
+        header += c;
+        if (c == '\n') {                    // if the byte is a newline character
+          // if the current line is blank, you got two newline characters in a row.
+          // that's the end of the client HTTP request, so send a response:
+          if (currentLine.length() == 0) {
+            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
+            // and a content-type so the client knows what's coming, then a blank line:
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println("Connection: close");
+            client.println();
+            
+         
+            
+            // Display the HTML web page
+            client.println("<!DOCTYPE html><html>");
+            client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+            client.println("<link rel=\"icon\" href=\"data:,\">");
+            // CSS to style the on/off buttons 
+            // Feel free to change the background-color and font-size attributes to fit your preferences
+            client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
+            client.println(".button { background-color: #FF0000; border: none; color: white; padding: 16px 40px;"); //changed to Red
+            client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
+            client.println(".button2 {background-color: #4CAF50 ;}</style></head>"); //changed to Green
+       
+            
+            // Web Page Heading
+            client.println("<body><h1>Is the compost of your composting toilet ready? </h1>");
+            
+         
+            client.println("Temperature indicates that compost is " + temperatureState + "</p>");
+            client.println("Temperature is " + TEString + "C" + "</p>");
+            // If the output27State is off, it displays the ON button       
+            if (temperatureState=="not ready") {
+              client.println("<p><a href=\"/26/on\"><button class=\"button\">NOT READY</button></a></p>");
+            } else {
+              client.println("<p><a href=\"/26/off\"><button class=\"button button2\">READY</button></a></p>");
+            } 
+            client.println("</body></html>");
+
+            // Gas website 
+         
+            client.println("Gas levels indicate that compost is " + gasState + "</p>");
+            client.println("Gas level is " + String(sensorValue) + " units" + "</p>");
+              if (gasState == "not ready") { 
+              client.println("<p><a href=\"/27/on\"><button class=\"button\">NOT READY</button></a></p>");
+            } else {
+              client.println("<p><a href=\"/27/off\"><button class=\"button button2\">READY</button></a></p>");
+            }
+              client.println("</body></html>");
+
+            // Overall  
+
+            client.println("Overall, your compost is " + overallState + "</p>");
+            if (overallState == "not ready") { 
+              client.println("<p><a href=\"/27/on\"><button class=\"button\">NOT READY</button></a></p>");
+            } else {
+              client.println("<p><a href=\"/27/off\"><button class=\"button button2\">READY</button></a></p>");
+            }
+              client.println("</body></html>");
+            
+            // The HTTP response ends with another blank line
+            client.println();
+            // Break out of the while loop
+            break;
+          } else { // if you got a newline, then clear currentLine
+            currentLine = "";
+          }
+        } else if (c != '\r') {  // if you got anything else but a carriage return character,
+          currentLine += c;      // add it to the end of the currentLine
+        }
+      }
+    }
+    // Clear the header variable
+    header = "";
+    // Close the connection
+    client.stop();
+    Serial.println("Client disconnected.");
+    Serial.println("");
+  }
+}
+
+</code></pre>  
+
+Ultimately, I get an interface that looks like this:
+![compost_interface](./09_Radio_WiFi_Bluetooth/compost_interface.png)
+
+Again, check out my Week 9 documentation for more details! 
+
+The main things I changed is that since this needed to be portable, I made sure that I was connecting to a rechargeable battery source rather than my laptop.
+
+I will also detail more changes I made in the Assembly section below since the other changes came up once I started assembling it with my dry box. 
+
 
  ## Dry Box
  I wanted to have a dry box for my electronics. After all, my electronics would be in a composting pit. Thus, I wanted the electronics (breadboard, wires, ESP32, battery, etc) to be dry. Thus, I decided to make a box that I could use to easily access the ESP32 and electronics but also would have a lid to close it. Moreover, 
@@ -55,15 +275,17 @@ To note, I used the colinear tool beccause I wanted to maintain the hinges in th
  As part of my design, I wanted a lip to say "Composting toilet monitor" to stand out. 
  Hence, I decided to take the existing structure and then extrude to the depth that I need the box to be (hence, so the total height is 85 mm). Hence, since the lip is 20 mm, I extruded the base of the box by another 65 mm. 
 
- I then cut the hole of the box. 
+ I then cut the hole of the box. Specifically, I used the extrusion tool from the top view to cut a rectangle 66.68 mm X 146.80 mm inwards for 60mm.
+ ![final_project](./final_project/cut.png) 
 
 I then made the slots for the thermistor and the gas sensor.
 I first measured the dimensions. I wanted the thermistor to be able to fit into a hole. Thus, I made the hole to be 4mm in diameter. 
  ![final_project](./final_project/dimensioning-slot.png) 
 
-I also wanted to have rectanglular hole that is slightly smaller than the space of the 4 different input wires, so I could glue the female end on the inside of the box and have the gas sensor be able to pox through the rectangular hole straight into the female ends of the wires. 
+I also wanted to have rectanglular hole that is slightly smaller than the space of the 4 different input wires, so I could glue the female end on the inside of the box and have the gas sensor be able to pox through the rectangular hole straight into the female ends of the wires. Hence, I made this a 2.6 X 10.6 mm rectangle
 
 To position where the holes should be I modeled them by stretching across the thermistor and the gas sensor and measured how far it was away from the bottom of the breadboard. 
+I determined that the thermistor should be 9.53 mm above ground, 21 mm from the left side. The rectangular hole for the gas sensor wires should have the line of the rectangle closest to the bottom be 9.5 mm away and 8.762 mm away from the hole for the thermositer. 
  ![final_project](./final_project/slots.png) 
 
 
@@ -85,7 +307,6 @@ After 3D printing it, I used pliers to yank out the support structure. This is a
 ![final_project](./final_project/yanked_out.jpg) 
 
 ## Assembling the different parts together 
-
 I have 
 
 Because I was in isolation due to COVID, my soldering composed of twisting the wires together and using the hot glue in my room to secure the wires together. 
@@ -98,7 +319,7 @@ I also then secured the female end of the wires for the gas sensors using glue a
 
 ## Future directions
 * Originally, I was also going to integrate a pH sensor, but it did not arrive--no worries-- and hence would be a good future direction
-* Since I was in isolation, I was unable to test my device on actual compost and provide the precise cutoff values for a Hence, actually testing the device and getting these values would be important. 
+* Since I was in isolation, I was unable to test my device on actual compost and provide the precise cutoff values for what temperature and methane level indicates that the compost is ready. Before I got COVID, I was planning to go to nearby compost pits and see what the temperature and methane level value is. Hence, actually testing the device and getting these values would be important. 
 * I would also like to fix the tolerance issue to make the gap between the lid and the box tighter. Moreover, I would also make the clasp tighter and less thin. 
 
 
