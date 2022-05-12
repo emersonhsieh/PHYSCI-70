@@ -35,6 +35,9 @@ This need for better sanitation has spurred a world-wide effort to brainstorm an
 
   Thus, my idea is to integrate sensors, specifically a temperature sensor and a sensor that detects methane levels, to tell the user if their compost is ready.
 
+  ## Materials Used
+  thermistor, wires, power bank, 3D printer, mq-4 gas sensor, esp32
+
 ## Electronics 
 The premise of my electronics component is that I want to have my ESP32 act as an accesspoint. This is especially important to have ESP32 act as an access point rather than rely on an external router, because since the toilet can be in more rural areas, there might not necessarily be a router nearby.
 ![accesspoint_2](./accesspoint_2.png) (pictorial taken from Random Nerd Tutorials)
@@ -137,7 +140,7 @@ void loop(){
   
   Serial.println("");
   delay(2000); // wait 2s for next reading
-  if (sensorValue > 300) {
+  if (sensorValue > 800) {
     gasState ="ready";
   } else {
     gasState = "not ready";
@@ -310,14 +313,29 @@ After 3D printing it, I used pliers to yank out the support structure. This is a
 
 Because I was in isolation due to COVID, my soldering composed of twisting the wires together and using the hot glue in my room to secure the wires together. 
 
+![final_project](./final_project/thermistor-solder-1.jpg) 
+![final_project](./final_project/thermistor-solder-2.jpg) 
+
+
 I first placed my breadboard, complete with everything plugged in, into my box. Yay it fits! 
-I then secured the female end of the wires for the gas sensors using glue and to ensure that it would secured tight enough for the gas sensor to easily plug into it. I then plugged in my gas sensor and ensured it fit in well. For maximum security, I also glued down the gas sensor with a dab of hot glue, but this is optional, especially if you want a design that's more modular. 
+I then secured the female end of the wires for the gas sensors using glue and to ensure that it would secured tight enough for the gas sensor to easily plug into it. 
+ ![final_project](./final_project/gas-wires.jpg) 
+
+I then plugged in my gas sensor and ensured it fit in well. For maximum security, I also glued down the gas sensor with a dab of hot glue, but this is optional, especially if you want a design that's more modular. 
 
 I then "soldered" (aka twisted and hot-glued in my room) the wires to the thermistor. That way, I can reach the hole designed for the thermistor from my breadboard
 
 
 Here is what it looked like at the end! 
+ ![final_project](./final_project/front.jpg) 
+  ![final_project](./final_project/top.jpg) 
+  ![final_project](./final_project/back.jpg) 
+  ![final_project](./final_project/side.jpg) 
 
+It worked!!! I was able to get the correct interface when I ran it :)
+(again, I set 30 degrees C as the cutoff for the temp and 800 units for the gas level and was going to change it once I was out of quarantine and had the opportunity to test with real compost. For now, it is a proof of concept)
+
+![final_project](./final_project/final-interface.jpg) 
 
 ## Future directions
 * Originally, I was also going to integrate a pH sensor, but it did not arrive--no worries-- and hence would be a good future direction
@@ -326,7 +344,7 @@ Here is what it looked like at the end!
 
 
 ## Reflections
-Overall, I'm really happy with the way this project turned out! 
+Overall, I'm really happy with the way this project turned out! I've learned a lot throughout the process, such as how to set up an ESP32 to be an access point. 
 
 
 </xmp>
