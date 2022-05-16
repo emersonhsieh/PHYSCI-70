@@ -140,16 +140,38 @@ Although this displayed results and visible peaks when I squeezed it, it was a l
 
 ![cup-squeeze](./cup-squeeze.jpg)
 
-My next iteration was the "eraser idea" Essentially, I moved the eraThis was much more consistent than the cup, but I still wanted something more accurate. 
+Here's what the serial plotter output looks like 
+![graph_1](./graph_1.png)
+
+My next iteration was the "eraser idea" Essentially, I moved the erasers along a ruler to see the total distance moved. I would then look at the serial plotter to see the corresponding graph. This was much more consistent than the cup, but I still wanted something more accurate/wasn't as subject to the angle of the eraser. 
 
 ![eraser](./eraser-squeeze.jpg)
 
 
-My little brother, who was on Spring break and with me at the time, suggested that I use the vice in the lab instead. That way, I have more control over the actual distance.
+My little brother, who was on Spring break and with me at the time, suggested that I use the vice in the lab instead. That way, I have more control over the actual distance. As demonstrated in the video, I can crank it to get it a fixed position. Thus, I can directly crank it to the distance I want it to be. 
 
 ![vice](./vice.gif)
 
+The peaks of this looked a lot more consistent. By going back and forth between the two same distances, I'm also able to get very stable peaks like so. 
+Here's what the serial plotter output looks like 
+![graph_1](./peaks.png)
+
+Thus, I moved on to the calibration part. 
+
+
+
 ## Calibration and data
+Here was my data based on the distance between the two parts of the wood (which the capacitative sensors are attached to) and the serial plotter output in the y-axis. The closer the capacitative sensors are to each other, he greater the y-axis value. 
+![vice](./data_table.png)
+
+
+![graph 3](./graph_3.png)
+![graph_4](./graph_4.png)
+
+Plotting the data and examining the data closer, it seems like the signal is very strong when the two copper foils are touching each other. After this initial peak, as they are further apart, the signal on the y-axis decreases by around 10 units for every 10 mm it's moved apart. Then, once we get to 45 mm apart, the capacitative sensors are no longer in range to detect each other, and the signal is at a constant 1140 units. 
+
+Thus, 1140 is the baseline for "no signal," and each increase in 1 unit on the y axis corresponds to 1 mm (based on the equation of the line of best fit) of the capacitative sensor that's moved towards the capacitative sensor, followed by a large peak once it touches. 
+
 
 
 
