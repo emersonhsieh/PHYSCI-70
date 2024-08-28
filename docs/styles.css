@@ -18,6 +18,10 @@ footer {
   background: linear-gradient(to bottom, #1c1d2a, #1c1d2a);
 }
 
+.logo {
+  color: teal;
+}
+
 h1,
 h2,
 h3,

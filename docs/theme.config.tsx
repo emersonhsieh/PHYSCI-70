@@ -44,6 +44,7 @@ const config: DocsThemeConfig = {
   editLink: {
     component: null,
   },
+  gitTimestamp: null,
 };
 
 export default config;
