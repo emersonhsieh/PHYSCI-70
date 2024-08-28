@@ -74,8 +74,7 @@ Code adapted from
 (https://create.arduino.cc/projecthub/Marcazzan_M/how-easy-is-it-to-use-a-thermistor-e39321)
 that didn't work this time:
 
-```c
-
+```c++
 //Thermometer with thermistor
 
 /*thermistor parameters:
@@ -146,7 +145,7 @@ Hence, I decided to run Rob Hart's temperature code instead, and this went well.
 
 Code from Rob Hart:
 
-```c
+```c++
 /*
 Thermistor_read.  Robert Hart June 2020.
 Using  datasheet for 10k NTC thermistor (Digikey Part No.).  https://www.vishay.com/docs/29049/ntcle100.pdf
@@ -253,7 +252,7 @@ Each of my subparts (temperature, gas, accesspoint) had a different Baud
 associated with it. I chose the highest Baud (11520) to use as the Baud for my
 final integration
 
-```c
+```c++
 // Load Wi-Fi library
 #include <WiFi.h>
 
