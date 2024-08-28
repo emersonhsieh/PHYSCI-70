@@ -1,0 +1,81 @@
+<!doctype html>
+<head>
+	<title>Change color of div with Firebase</title>
+<style>
+.box{
+	height: 100px;
+	width: 100px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+}
+​
+</style>
+</head>
+<body>
+​
+​
+//Starting from Nathan's Firebase HTML JS code
+​
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+​
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+​
+	<script>
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+		apiKey: "REPLACE_WITH_YOUR_OWN",
+		authDomain: "REPLACE_WITH_YOUR_OWN",
+		databaseURL: "REPLACE_WITH_YOUR_OWN",
+		projectId: "REPLACE_WITH_YOUR_OWN",
+		storageBucket: "REPLACE_WITH_YOUR_OWN",
+		messagingSenderId: "REPLACE_WITH_YOUR_OWN",
+		appId: "REPLACE_WITH_YOUR_OWN"
+​
+	};
+	
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+​
+	// Get a database reference
+	database = firebase.database();
+​
+	//CHANGE LED_STATUS TO WHAT IS IN YOUR FIREBASE ex: temp_status
+	var ref = database.ref('LED_STATUS');
+​
+	//On the event that there is a value, get that value or return an error
+	ref.on('value', gotData, errData);
+​
+	//Make a function that gets the data
+	function gotData(data){
+		console.log(data.val());
+​
+		//Get the data from the firebase
+		response = data.val();
+		if (response == 'GREEN'){
+			document.getElementById('temp_box').style.backgroundColor = 'green';
+		}else if (response == 'RED'){
+			document.getElementById('temp_box').style.backgroundColor = 'red';
+		}else{
+			document.getElementById('temp_box').style.backgroundColor = 'black';
+		}
+		
+	}
+​
+	//Make a function that calls an error
+	function errData(err){
+		console.log('Error!');
+		console.log(err);	
+	}
+	
+​
+    </script>
+​
+​
+​
+<div class='box' id='temp_box'></div>
+​
+</body>
+</html>

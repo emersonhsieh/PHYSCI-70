@@ -1,0 +1,15 @@
+{
+  "01_intro": "1. Intro",
+  "02_cad": "2. CAD Design",
+  "03_motor_circuitry": "3. Motor Circuitry",
+  "04_microcontrollers": "4. Microcontrollers",
+  "05_3d_printing": "5. 3D Printing",
+  "06_input_devices": "6. Input Devices",
+  "07_output_servo": "7. Output Servo",
+  "08_cnc": "8. CNC Milling",
+  "09_wireless": "9. Wireless",
+  "10_whack_a_covid": "10. Whack-a-COVID",
+  "11_compost_sensor": "11. Compost Sensor",
+  "12_vacuum_forming": "12. Vacuum Forming",
+  "final_project": "Final Project"
+}
