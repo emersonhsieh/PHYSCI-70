@@ -124,15 +124,18 @@ and 1s when the button is pressed, which is what I needed.
 ![zerosandones](../../public/04_microcontrollers/zeros_and_ones.png)
 
 Originally, I made the following code to make my motor turn only when the button
-was pressed. ![code](../../public/04_microcontrollers/code_1.png). The thought
-was that without a button press, the motor would not operate (hence the double
-LOW in the else statement). With the button press, it would result it in turning
-(Hence the HIGH, LOW). A huge problem though, was that when my arduino complex
-was plugged into my computer, there was turning even when the button wasn't
-pressed. However, with a button press, it would turn quicker. In addition, I
-found that if I made the else statement had both of the outputs as HIGH HIGH
-rather than LOW LOW, there would be an initial higher speed that when, with the
-press of the button, would make it go even faster.
+was pressed.
+
+![code](../../public/04_microcontrollers/code_1.png)
+
+The thought was that without a button press, the motor would not operate (hence
+the double LOW in the else statement). With the button press, it would result it
+in turning (Hence the HIGH, LOW). A huge problem though, was that when my
+arduino complex was plugged into my computer, there was turning even when the
+button wasn't pressed. However, with a button press, it would turn quicker. In
+addition, I found that if I made the else statement had both of the outputs as
+HIGH HIGH rather than LOW LOW, there would be an initial higher speed that when,
+with the press of the button, would make it go even faster.
 
 I tried to debug this--I think there's leaky voltage. However, my circuit made
 sense and my button worked as indicated by the 0s and 1s. I even asked my
