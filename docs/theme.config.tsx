@@ -22,7 +22,7 @@ const config: DocsThemeConfig = {
   docsRepositoryBase:
     "https://github.com/emersonhsieh/PHYSCI-70/tree/main/docs",
   footer: {
-    text: "2024 Pallas Chou & Emerson Hsieh",
+    text: "2024 Pallas Chou",
   },
   primaryHue: {
     dark: 190,
